@@ -67,6 +67,8 @@ public class OrderMainController implements CommandLineRunner  {
 			
 			List<ProductVO> orderList = new ArrayList<ProductVO>();
 			
+			boolean includedKlass = false;
+			
 			while (true) {
 				System.out.println();
 				System.out.print("상품번호 : ");
@@ -114,6 +116,10 @@ public class OrderMainController implements CommandLineRunner  {
 				
 				order.setQuantity(quantity);
 				
+				if(order.getType().equals("KLASS")) {
+					includedKlass = true;
+				}
+				
 				orderList.add(order);
 				
 			}
@@ -132,7 +138,7 @@ public class OrderMainController implements CommandLineRunner  {
 				System.out.println("----------------------------------------------------");
 				System.out.println("주문금액: " + df.format(allPrice) + "원");
 				
-				if(allPrice < 50000) {
+				if(allPrice < 50000 && !includedKlass) {
 					System.out.println("배송비: " + df.format(5000) + "원");
 					allPrice += 5000;
 				}
